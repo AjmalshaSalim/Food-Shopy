@@ -6,6 +6,9 @@ import Menu from './pages/Menu';
 import About from './pages/About';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import NewProduct from './pages/NewProduct';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter,createRoutesFromElements,Route,RouterProvider}from 'react-router-dom'
 
@@ -16,7 +19,9 @@ const router=createBrowserRouter(
 <Route path='menu' element={<Menu/>}/>
 <Route path='about' element={<About/>}/>
 <Route path='contact' element={<Contact/>}/>
-
+<Route path='login' element={<Login/>}/>
+<Route path='newProduct' element={<NewProduct/>}/>
+<Route path='signup' element={<Signup/>}/>
     </Route>
   )
 )
