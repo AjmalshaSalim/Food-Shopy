@@ -1,10 +1,13 @@
 import React from "react";
-import { useState} from "react";
+import { useState } from "react";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import loginSignupImage from "../assets/login-animation.gif";
+import { imageToBase64 } from "../utility/imageToBase64";
+
 function Signup() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [data, setData] = useState({
@@ -13,8 +16,9 @@ function Signup() {
     email: "",
     password: "",
     confirmPassword: "",
+    image: "",
   });
-console.log(data);
+  console.log(data);
   const handleShowConfirmPassword = () => {
     setShowConfirmPassword((prev) => !prev);
   };
@@ -31,28 +35,49 @@ console.log(data);
     });
   };
 
-  const handleSubmit=(e)=>{
-e.preventDefault()
-const {firstName,LastName,email,password,confirmPassword}=data
-if(firstName&&LastName&&email&&password&&confirmPassword){
-  if(password===confirmPassword){
-alert("Registed Successfully")
-  }else{
-    alert("Entered password does'nt matching")
-  }
-}else{
-  alert("Please enter required fields")
+  const handleUploadProfileImage = async(e)=>{
+const data = await imageToBase64(e.target.files[0])
+console.log(data)
+setData((prev)=>{
+return{
+  ...prev,
+  image:data
 }
+})
   }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { firstName, LastName, email, password, confirmPassword } = data;
+    if (firstName && LastName && email && password && confirmPassword) {
+      if (password === confirmPassword) {
+        alert("Registed Successfully");
+        navigate("/login");
+      } else {
+        alert("Entered password does'nt matching");
+      }
+    } else {
+      alert("Please enter required fields");
+    }
+  };
 
   return (
     <div className="p-3 md:p-4">
       <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
         {/* <h1 className='text-center text-2xl font-bold'>Signup</h1> */}
-        <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
-          <img src={loginSignupImage} alt="" className="w-full" />
+        <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
+          <img src={data.image ? data.image :loginSignupImage} alt="" className="w-full h-full" />
+          <label htmlFor="profileImage">
+            <div className="absolute bottom-0 h-1/3 bg-slate-500 bg-opacity-50 w-full text-center cursor-pointer">
+              <p className="text-sm p-1 text-white">Upload</p>
+            </div>
+            <input type={"file"} id="profileImage" accept="image/*" className="hidden" onChange={handleUploadProfileImage}/>
+          </label>
         </div>
-        <form action="" className="w-full py-4 flex flex-col" onSubmit={handleSubmit}>
+        <form
+          action=""
+          className="w-full py-4 flex flex-col"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="firstName" className="">
             First Name
           </label>
@@ -129,7 +154,7 @@ alert("Registed Successfully")
               {showConfirmPassword ? <BiShow /> : <BiHide />}
             </span>
           </div>
-          <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center py-1 rounded-full mt-4">
+          <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center pb-1 py-1 rounded-full mt-4">
             Sign Up
           </button>
         </form>
