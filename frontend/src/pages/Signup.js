@@ -35,21 +35,34 @@ function Signup() {
     });
   };
 
-  const handleUploadProfileImage = async(e)=>{
-const data = await imageToBase64(e.target.files[0])
-console.log(data)
-setData((prev)=>{
-return{
-  ...prev,
-  image:data
-}
-})
-  }
-  const handleSubmit = (e) => {
+  const handleUploadProfileImage = async (e) => {
+    const data = await imageToBase64(e.target.files[0]);
+    console.log(data);
+    setData((prev) => {
+      return {
+        ...prev,
+        image: data,
+      };
+    });
+  };
+  console.log(process.env.REACT_APP_SERVER_DOMAIN);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, LastName, email, password, confirmPassword } = data;
     if (firstName && LastName && email && password && confirmPassword) {
       if (password === confirmPassword) {
+        const fetchData = await fetch(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        const data = await fetchData.json();
+        console.log(data);
         alert("Registed Successfully");
         navigate("/login");
       } else {
@@ -65,12 +78,22 @@ return{
       <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
         {/* <h1 className='text-center text-2xl font-bold'>Signup</h1> */}
         <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
-          <img src={data.image ? data.image :loginSignupImage} alt="" className="w-full h-full" />
+          <img
+            src={data.image ? data.image : loginSignupImage}
+            alt=""
+            className="w-full h-full"
+          />
           <label htmlFor="profileImage">
             <div className="absolute bottom-0 h-1/3 bg-slate-500 bg-opacity-50 w-full text-center cursor-pointer">
               <p className="text-sm p-1 text-white">Upload</p>
             </div>
-            <input type={"file"} id="profileImage" accept="image/*" className="hidden" onChange={handleUploadProfileImage}/>
+            <input
+              type={"file"}
+              id="profileImage"
+              accept="image/*"
+              className="hidden"
+              onChange={handleUploadProfileImage}
+            />
           </label>
         </div>
         <form
