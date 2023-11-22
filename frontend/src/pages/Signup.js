@@ -45,7 +45,7 @@ function Signup() {
       };
     });
   };
-  console.log(process.env.REACT_APP_SERVER_DOMAIN);
+  console.log(process.env.REACT_APP_SERVER_DOMAIN); 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, LastName, email, password, confirmPassword } = data;
@@ -61,9 +61,9 @@ function Signup() {
             body: JSON.stringify(data),
           }
         );
-        const data = await fetchData.json();
-        console.log(data);
-        alert("Registed Successfully");
+        const dataRes = await fetchData.json();
+        console.log(dataRes);
+        // alert("Registed Successfully");
         navigate("/login");
       } else {
         alert("Entered password does'nt matching");
