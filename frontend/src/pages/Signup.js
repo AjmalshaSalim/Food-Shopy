@@ -45,7 +45,7 @@ function Signup() {
       };
     });
   };
-  console.log(process.env.REACT_APP_SERVER_DOMAIN); 
+  console.log(process.env.REACT_APP_SERVER_DOMAIN);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password, confirmPassword } = data;
@@ -161,6 +161,7 @@ function Signup() {
           <label htmlFor="confirmPassword" className="">
             Confirm Password
           </label>
+          
           <div className="flex px-2 py-1 bg-slate-200 rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300">
             <input
               type={showConfirmPassword ? "text" : "password"}
@@ -170,17 +171,20 @@ function Signup() {
               value={data.confirmPassword}
               onChange={handleChange}
             />
+
             <span
               className="flex text-xl cursor-pointer"
               onClick={handleShowConfirmPassword}
             >
               {showConfirmPassword ? <BiShow /> : <BiHide />}
             </span>
+
           </div>
           <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center pb-1 py-1 rounded-full mt-4">
             Sign Up
           </button>
         </form>
+
         <p className="text-left text-sm mt-2">
           Already have an account ?{" "}
           <Link to={"/login"} className="text-blue-400">
