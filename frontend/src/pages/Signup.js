@@ -63,7 +63,7 @@ function Signup() {
         );
         const dataRes = await fetchData.json();
         console.log(dataRes);
-        // alert("Registed Successfully");
+        alert(dataRes.message);
         navigate("/login");
       } else {
         alert("Entered password does'nt matching");

@@ -30,13 +30,28 @@ const userSchema = mongoose.Schema({
     image: String,
 })
 
+//Model
+const UserModel=mongoose.model("user",userSchema)
+
 //Api   
 app.get('/',(req,res)=>{
     res.send("server Running")
 })
 
-app.post('/signup',(req,res)=>{
+app.post('/signup',async(req,res)=>{
 console.log(req.body);
+const {email}= req.body;
+UserModel.findOne({email:email},(err,result)=>{
+    console.log(result)
+    console.log(err);
+    if(result){
+        res.send({message :"Email is already exist"})
+    }else{
+const data=UserModel(req.body)
+const save=data.save()
+res.send({message:"Registered Successfully"})
+    }
+})
 })
 
 app.listen(PORT,()=> console.log("Server is Running at port :",PORT));
