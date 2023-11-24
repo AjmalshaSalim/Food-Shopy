@@ -12,7 +12,7 @@ function Signup() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [data, setData] = useState({
     firstName: "",
-    LastName: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -48,8 +48,8 @@ function Signup() {
   console.log(process.env.REACT_APP_SERVER_DOMAIN); 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { firstName, LastName, email, password, confirmPassword } = data;
-    if (firstName && LastName && email && password && confirmPassword) {
+    const { firstName, lastName, email, password, confirmPassword } = data;
+    if (firstName && lastName && email && password && confirmPassword) {
       if (password === confirmPassword) {
         const fetchData = await fetch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
@@ -113,13 +113,13 @@ function Signup() {
             onChange={handleChange}
           />
 
-          <label htmlFor="LastName" className="">
+          <label htmlFor="lastName" className="">
             Last Name
           </label>
           <input
             type={"text"}
-            id="LastName"
-            name="LastName"
+            id="lastName"
+            name="lastName"
             className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
             value={data.LastName}
             onChange={handleChange}

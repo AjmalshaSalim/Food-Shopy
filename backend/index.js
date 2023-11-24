@@ -37,21 +37,25 @@ const UserModel=mongoose.model("user",userSchema)
 app.get('/',(req,res)=>{
     res.send("server Running")
 })
-
-app.post('/signup',async(req,res)=>{
-console.log(req.body);
-const {email}= req.body;
-UserModel.findOne({email:email},(err,result)=>{
-    console.log(result)
-    console.log(err);
-    if(result){
-        res.send({message :"Email is already exist"})
-    }else{
-const data=UserModel(req.body)
-const save=data.save()
-res.send({message:"Registered Successfully"})
+app.post('/signup', async (req, res) => {
+    console.log(req.body);
+    const { email } = req.body;
+  
+    try {
+      const existingUser = await UserModel.findOne({ email: email });
+  
+      if (existingUser) {
+        res.send({ message: "Email is already in use" });
+      } else {
+        const newUser = new UserModel(req.body);
+        const savedUser = await newUser.save();
+        res.send({ message: "Registered Successfully", user: savedUser });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "Internal Server Error" });
     }
-})
-})
+  });
+  
 
 app.listen(PORT,()=> console.log("Server is Running at port :",PORT));
