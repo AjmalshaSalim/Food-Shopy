@@ -32,26 +32,49 @@ const userSchema = mongoose.Schema({
 //Model
 const UserModel = mongoose.model("user", userSchema);
 
-//Api
+//Api 
 app.get("/", (req, res) => {
   res.send("server Running");
 });
+//Api signup
 app.post("/signup", async (req, res) => {
   console.log(req.body);
   const { email } = req.body;
   try {
     const existingUser = await UserModel.findOne({ email: email });
     if (existingUser) {
-      res.send({ message: "Email id already exist" });
+      res.send({ message: "Email id already exist",alert:false });
     } else {
       const newUser = new UserModel(req.body);
       const savedUser = await newUser.save();
-      res.send({ message: "Registered Successfully", user: savedUser });
+      res.send({ message: "Registered Successfully",alert:true });
     }
   } catch (error) {
     console.error(error);
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
+//Api login
+app.post("/login",async (req,res)=>{
+    console.log(req.body)
+    const {email}=req.body;
+    UserModel.findOne({email:email},(err,result)=>{
+if(result){
+    console.log(result);
+    const dataSend={
+        _id:result._id,
+        firstName:result.firstName,
+        LastName:result.LastName,
+        email:result.email,
+        image:result.image
+    };
+    console.log(dataSend);
+    res.send({message:"login is successfully",alert:true,data:dataSend})
+}else{
+    res.send({message:"Email not found, Please sign up",alert:false}) 
+}
+    })
+    
+})
 
 app.listen(PORT, () => console.log("Server is Running at port :", PORT));

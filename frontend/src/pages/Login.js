@@ -2,17 +2,15 @@ import React from 'react'
 import { useState} from "react";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import loginSignupImage from "../assets/login-animation.gif";
-
+import { toast } from "react-hot-toast";
 function Login() {
+  const navigate=useNavigate()
     const [showPassword, setShowPassword] = useState(false);
     const [data, setData] = useState({
-      firstName: "",
-      LastName: "",
       email: "",
       password: "",
-      confirmPassword: "",
     });
   console.log(data);
     const handleShowPassword = () => {
@@ -28,15 +26,32 @@ function Login() {
       });
     };
   
-    const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
   e.preventDefault()
   const {email,password}=data
   if(email&&password){
-  alert("Registed Successfully")
+    
+      const fetchData = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/login`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const dataRes = await fetchData.json();
+      console.log(dataRes);
+  toast(dataRes.message)
+  if(dataRes.alert){
+setTimeout(()=>{
+  navigate("/")
+},1000)
   }else{
-    alert("Please enter required fields")
+
   }
-    }
+    } }
   return (
     <div className="p-3 md:p-4">
       <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
@@ -91,6 +106,6 @@ function Login() {
       </div>
     </div>
   )
-}
 
+}
 export default Login
