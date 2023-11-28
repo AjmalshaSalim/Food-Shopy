@@ -19,7 +19,7 @@ mongoose
 //Schema
 const userSchema = mongoose.Schema({
   firstName: String,
-  LastName: String,
+  lastName: String,
   email: {
     type: String,
     unique: true,
@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 });
 //Api signup
 app.post("/signup", async (req, res) => {
-  console.log(req.body);
+  console.log("signup result",req.body);
   const { email } = req.body;
   try {
     const existingUser = await UserModel.findOne({ email: email });
@@ -55,26 +55,32 @@ app.post("/signup", async (req, res) => {
   }
 });
 //Api login
-app.post("/login",async (req,res)=>{
-    console.log(req.body)
-    const {email}=req.body;
-    UserModel.findOne({email:email},(err,result)=>{
-if(result){
-    console.log(result);
-    const dataSend={
-        _id:result._id,
-        firstName:result.firstName,
-        LastName:result.LastName,
-        email:result.email,
-        image:result.image
-    };
-    console.log(dataSend);
-    res.send({message:"login is successfully",alert:true,data:dataSend})
-}else{
-    res.send({message:"Email not found, Please sign up",alert:false}) 
-}
-    })
-    
-})
+app.post("/login", async (req, res) => {
+  console.log(req.body);
+  const { email } = req.body;
+
+  try {
+      const result = await UserModel.findOne({ email: email });
+
+      if (result) {
+
+          const dataSend = {
+              _id: result._id,
+              firstName: result.firstName,
+              lastName: result.lastName,
+              email: result.email,
+              image: result.image
+          };
+          console.log(dataSend);
+          res.send({ message: "Login is successful", alert: true, data: dataSend });
+      } else {
+          res.send({ message: "Email not found, please sign up", alert: false });
+      }
+  } catch (err) {
+      console.error("Error in login:", err);
+      res.status(500).send({ message: "Internal Server Error", alert: false });
+  }
+});
+
 
 app.listen(PORT, () => console.log("Server is Running at port :", PORT));

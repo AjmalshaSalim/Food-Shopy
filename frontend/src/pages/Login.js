@@ -5,8 +5,16 @@ import { BiHide } from "react-icons/bi";
 import { Link, useNavigate} from 'react-router-dom';
 import loginSignupImage from "../assets/login-animation.gif";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from 'react-redux';
+import { loginRedux } from '../redux/userSlice';
 function Login() {
   const navigate=useNavigate()
+
+const userData= useSelector(state => state)
+console.log(userData);
+
+const dispatch= useDispatch()
+
     const [showPassword, setShowPassword] = useState(false);
     const [data, setData] = useState({
       email: "",
@@ -43,11 +51,12 @@ function Login() {
       );
       const dataRes = await fetchData.json();
       console.log(dataRes);
-  toast(dataRes.message)
+  toast(userData.user.firstName + dataRes.message)
   if(dataRes.alert){
+    dispatch(loginRedux(dataRes))
 setTimeout(()=>{
   navigate("/")
-},1000)
+},1000);
   }else{
 
   }

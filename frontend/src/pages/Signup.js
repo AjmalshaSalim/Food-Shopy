@@ -125,7 +125,7 @@ function Signup() {
             id="lastName"
             name="lastName"
             className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-            value={data.LastName}
+            value={data.lastName}
             onChange={handleChange}
           />
 
