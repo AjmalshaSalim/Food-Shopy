@@ -16,7 +16,7 @@ const handleOnChange =(e)=>{
 setData((prev)=>{
 return{
   ...prev,
-  [name]: value
+  [name]: value,
 }
 })
 }
@@ -31,15 +31,25 @@ return{
   })
 
   };
-const handleSubmit=(e)=>{
+const handleSubmit=async(e)=>{
 e.preventDefault()
+// console.log(data);
+const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/uploadProducts`,{
+  method: "POST",
+  headers:{
+    "content-type":"application/json"
+  },
+  body:JSON.stringify(data)
+})
+const fetchRes= await fetchData.json()
+console.log(fetchRes);
 }
   return (
     <div className="p-4">
       <form
         action=""
         className="m-auto w-full max-w-md shadow flex flex-col p-3 bg-white"
-        onSubmit={handleSubmit  }
+        onSubmit={handleSubmit}
       >
         <label htmlFor="name" className="">
           Name
@@ -50,11 +60,12 @@ e.preventDefault()
           Category
         </label>
         <select name="category" id="category" className="bg-slate-200 p-1 my-1" onChange={handleOnChange}>
-          <option value="">Fruits</option>
-          <option value="">Vegitables</option>
-          <option value="">Ice Cream</option>
-          <option value="">Dosa</option>
-          <option value="">Pizza</option>
+          <option value={"other"}>-- Select</option>
+          <option value={"fruits"}>Fruits</option>
+          <option value={"vegetables"}>Vegitables</option>
+          <option value={"ice creams"}>Ice Creams</option>
+          <option value={"Dosa"}>Dosa</option>
+          <option value={"Pizza"}>Pizza</option>
         </select>
 
         <label htmlFor="image" className="">

@@ -16,7 +16,7 @@ mongoose
   .then(() => console.log("database connected"))
   .catch((err) => console.log(err));
 
-//Schema
+//User Schema
 const userSchema = mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -29,7 +29,7 @@ const userSchema = mongoose.Schema({
   image: String,
 });
 
-//Model
+//User Model
 const UserModel = mongoose.model("user", userSchema);
 
 //Api 
@@ -54,7 +54,7 @@ app.post("/signup", async (req, res) => {
     res.status(500).send({ message: "Internal Server Error" });
   }
 });
-//Api login
+//User Api login
 app.post("/login", async (req, res) => {
   console.log(req.body);
   const { email } = req.body;
@@ -82,5 +82,24 @@ app.post("/login", async (req, res) => {
   }
 });
 
+
+//Product Section
+
+//Product Schema
+const schemaProduct= mongoose.Schema({
+  name:String,
+  category:String,
+  image:String,
+  price:String,
+  description:String
+})
+
+//Product Model
+const productModel= mongoose.model("product",schemaProduct)
+
+//Save Products
+app.post("/uploadProducts",(req,res)=>{
+console.log(req.body);
+})
 
 app.listen(PORT, () => console.log("Server is Running at port :", PORT));
