@@ -7,7 +7,7 @@ import loginSignupImage from "../assets/login-animation.gif";
 import { imageToBase64 } from "../utility/imageToBase64";
 import { toast } from "react-hot-toast";
 
-function Signup() { 
+function Signup() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -51,24 +51,23 @@ function Signup() {
     e.preventDefault();
     const { firstName, lastName, email, password, confirmPassword } = data;
     if (firstName && lastName && email && password && confirmPassword) {
-        if (password === confirmPassword) {
-          const fetchData = await fetch(
-            `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
-            {
-              method: "POST",
-              headers: {
-                "content-type": "application/json",
-              },
-              body: JSON.stringify(data),
-            }
-          );
-          const dataRes = await fetchData.json();
-          console.log(dataRes);
+      if (password === confirmPassword) {
+        const fetchData = await fetch(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/signup`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(data),
+          }
+        );
+        const dataRes = await fetchData.json();
+        console.log(dataRes);
         toast(dataRes.message);
-        if(dataRes.alert){
-        navigate("/login");
+        if (dataRes.alert) {
+          navigate("/login");
         }
-       
       } else {
         alert("Entered password does'nt matching");
       }
@@ -182,7 +181,6 @@ function Signup() {
             >
               {showConfirmPassword ? <BiShow /> : <BiHide />}
             </span>
-
           </div>
           <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center pb-1 py-1 rounded-full mt-4">
             Sign Up

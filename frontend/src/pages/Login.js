@@ -1,44 +1,43 @@
-import React from 'react'
-import { useState} from "react";
+import React from "react";
+import { useState } from "react";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import loginSignupImage from "../assets/login-animation.gif";
 import { toast } from "react-hot-toast";
-import { useDispatch, useSelector } from 'react-redux';
-import { loginRedux } from '../redux/userSlice';
+import { useDispatch, useSelector } from "react-redux";
+import { loginRedux } from "../redux/userSlice";
 function Login() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-const userData= useSelector(state => state)
-console.log(userData);
+  const userData = useSelector((state) => state);
+  console.log(userData);
 
-const dispatch= useDispatch()
+  const dispatch = useDispatch();
 
-    const [showPassword, setShowPassword] = useState(false);
-    const [data, setData] = useState({
-      email: "",
-      password: "",
-    });
+  const [showPassword, setShowPassword] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
   console.log(data);
-    const handleShowPassword = () => {
-      setShowPassword((prev) => !prev);
-    };
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setData((prev) => {
-        return {
-          ...prev,
-          [name]: value,
-        };
-      });
-    };
-  
-  const handleSubmit=async(e)=>{
-  e.preventDefault()
-  const {email,password}=data
-  if(email&&password){
-    
+  const handleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = data;
+    if (email && password) {
       const fetchData = await fetch(
         `${process.env.REACT_APP_SERVER_DOMAIN}/login`,
         {
@@ -51,24 +50,27 @@ const dispatch= useDispatch()
       );
       const dataRes = await fetchData.json();
       console.log(dataRes);
-  toast(userData.user.firstName + dataRes.message)
-  if(dataRes.alert){
-    dispatch(loginRedux(dataRes))
-setTimeout(()=>{
-  navigate("/")
-},1000);
-  }else{
-
-  }
-    } }
+      toast(userData.user.firstName + dataRes.message);
+      if (dataRes.alert) {
+        dispatch(loginRedux(dataRes));
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+      }
+    }
+  };
   return (
     <div className="p-3 md:p-4">
       <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
         <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
           <img src={loginSignupImage} alt="" className="w-full" />
         </div>
-        <form action="" className="w-full py-4 flex flex-col" onSubmit={handleSubmit}>
-         
+        <form
+          action=""
+          className="w-full py-4 flex flex-col"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="email" className="">
             Email
           </label>
@@ -108,12 +110,11 @@ setTimeout(()=>{
         <p className="text-left text-sm mt-2">
           Don't have an account ?{" "}
           <Link to={"/signup"} className="text-blue-400">
-             Sign Up
+            Sign Up
           </Link>
         </p>
       </div>
     </div>
-  )
-
+  );
 }
-export default Login
+export default Login;

@@ -1,37 +1,42 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import Menu from './pages/Menu';
-import About from './pages/About';
-import Home from './pages/Home';
-import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import NewProduct from './pages/NewProduct';
-import reportWebVitals from './reportWebVitals';
-import {createBrowserRouter,createRoutesFromElements,Route,RouterProvider}from 'react-router-dom'
-import { store } from './redux/index';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import Menu from "./pages/Menu";
+import About from "./pages/About";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import NewProduct from "./pages/NewProduct";
+import reportWebVitals from "./reportWebVitals";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import { store } from "./redux/index";
+import { Provider } from "react-redux";
 
-const router=createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App/>}>
-<Route index element={<Home/>}/>
-<Route path='menu' element={<Menu/>}/>
-<Route path='about' element={<About/>}/>
-<Route path='contact' element={<Contact/>}/>
-<Route path='login' element={<Login/>}/>
-<Route path='newProduct' element={<NewProduct/>}/>
-<Route path='signup' element={<Signup/>}/>
+    <Route path="/" element={<App />}>
+      <Route index element={<Home />} />
+      <Route path="menu" element={<Menu />} />
+      <Route path="about" element={<About />} />
+      <Route path="contact" element={<Contact />} />
+      <Route path="login" element={<Login />} />
+      <Route path="newProduct" element={<NewProduct />} />
+      <Route path="signup" element={<Signup />} />
     </Route>
   )
-)
+);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-  <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </Provider>
 );
 

@@ -32,22 +32,22 @@ const userSchema = mongoose.Schema({
 //User Model
 const UserModel = mongoose.model("user", userSchema);
 
-//Api 
+//Api
 app.get("/", (req, res) => {
-  res.send("server Running");
+  res.send("server Running at port 8000 ....Mongoose Connected ....");
 });
 //Api signup
 app.post("/signup", async (req, res) => {
-  console.log("signup result",req.body);
+  console.log("signup result", req.body);
   const { email } = req.body;
   try {
     const existingUser = await UserModel.findOne({ email: email });
     if (existingUser) {
-      res.send({ message: "Email id already exist",alert:false });
+      res.send({ message: "Email id already exist", alert: false });
     } else {
       const newUser = new UserModel(req.body);
       const savedUser = await newUser.save();
-      res.send({ message: "Registered Successfully",alert:true });
+      res.send({ message: "Registered Successfully", alert: true });
     }
   } catch (error) {
     console.error(error);
@@ -60,46 +60,47 @@ app.post("/login", async (req, res) => {
   const { email } = req.body;
 
   try {
-      const result = await UserModel.findOne({ email: email });
+    const result = await UserModel.findOne({ email: email });
 
-      if (result) {
-
-          const dataSend = {
-              _id: result._id,
-              firstName: result.firstName,
-              lastName: result.lastName,
-              email: result.email,
-              image: result.image
-          };
-          console.log(dataSend);
-          res.send({ message: "Login is successful", alert: true, data: dataSend });
-      } else {
-          res.send({ message: "Email not found, please sign up", alert: false });
-      }
+    if (result) {
+      const dataSend = {
+        _id: result._id,
+        firstName: result.firstName,
+        lastName: result.lastName,
+        email: result.email,
+        image: result.image,
+      };
+      console.log(dataSend);
+      res.send({ message: "Login is successful", alert: true, data: dataSend });
+    } else {
+      res.send({ message: "Email not found, please sign up", alert: false });
+    }
   } catch (err) {
-      console.error("Error in login:", err);
-      res.status(500).send({ message: "Internal Server Error", alert: false });
+    console.error("Error in login:", err);
+    res.status(500).send({ message: "Internal Server Error", alert: false });
   }
 });
-
 
 //Product Section
 
 //Product Schema
-const schemaProduct= mongoose.Schema({
-  name:String,
-  category:String,
-  image:String,
-  price:String,
-  description:String
-})
+const schemaProduct = mongoose.Schema({
+  name: String,
+  category: String,
+  image: String,
+  price: String,
+  description: String,
+});
 
 //Product Model
-const productModel= mongoose.model("product",schemaProduct)
+const productModel = mongoose.model("product", schemaProduct);
 
 //Save Products
-app.post("/uploadProducts",(req,res)=>{
-console.log(req.body);
-})
+app.post("/uploadProducts", async(req, res) => {
+  console.log(req.body);
+  const data=await productModel(req.body)
+  const dataSave=await data.save()
+  res.send({message:"Upload Successfully"})
+});
 
 app.listen(PORT, () => console.log("Server is Running at port :", PORT));

@@ -3,8 +3,8 @@ async function imageToBase64(file) {
   reader.readAsDataURL(file);
   const data = new Promise((resolve, reject) => {
     reader.onload = () => resolve(reader.result);
-    reader.onerror = err => reject(err);
+    reader.onerror = (err) => reject(err);
   });
-  return data
+  return data;
 }
 export { imageToBase64 };
