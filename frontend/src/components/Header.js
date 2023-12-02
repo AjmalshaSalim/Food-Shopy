@@ -29,10 +29,10 @@ function Header() {
         </Link>
         <div className="flex items-center gap-4 md:gap-7">
           <nav className="flex gap-4 md:gap-6 text-base md:text-lg">
-            <Link to={""}>Home</Link>
-            <Link to={"Menu"}>Menu</Link>
-            <Link to={"About"}>About</Link>
-            <Link to={"Contact"}>Contact</Link>
+            <Link className="hover:text-red-500" to={""}>Home</Link>
+            <Link className="hover:text-red-500" to={"Menu"}>Menu</Link>
+            <Link className="hover:text-red-500" to={"About"}>About</Link>
+            <Link className="hover:text-red-500" to={"Contact"}>Contact</Link>
           </nav>
           <div className="text-2xl text-slate-600 relative cursor-pointer">
             <FaCartShopping />
