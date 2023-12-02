@@ -96,11 +96,17 @@ const schemaProduct = mongoose.Schema({
 const productModel = mongoose.model("product", schemaProduct);
 
 //Save Products
-app.post("/uploadProducts", async(req, res) => {
+app.post("/uploadProducts", async (req, res) => {
   console.log(req.body);
-  const data=await productModel(req.body)
-  const dataSave=await data.save()
-  res.send({message:"Upload Successfully"})
+  const data = await productModel(req.body);
+  const dataSave = await data.save();
+  res.send({ message: "Upload Successfully" });
+});
+
+//Product API
+app.get("/product", async (req, res) => {
+  const data = await productModel.find({});
+  res.send(JSON.stringify(data));
 });
 
 app.listen(PORT, () => console.log("Server is Running at port :", PORT));

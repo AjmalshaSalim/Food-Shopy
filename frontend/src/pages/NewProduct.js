@@ -35,37 +35,35 @@ function NewProduct() {
     e.preventDefault();
     console.log(data);
 
-const {name,image,category,price}=data;
+    const { name, image, category, price } = data;
 
-if(name&& image && category && price){
-  const fetchData = await fetch(
-    `${process.env.REACT_APP_SERVER_DOMAIN}/uploadProducts`,
-    {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
+    if (name && image && category && price) {
+      const fetchData = await fetch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/uploadProducts`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      const fetchRes = await fetchData.json();
+      toast(fetchRes.message);
+      setData(() => {
+        return {
+          name: "",
+          category: "",
+          image: "",
+          price: "",
+          description: "",
+        };
+      });
+    } else {
+      toast("enter required field");
     }
-  );
-  const fetchRes = await fetchData.json();
-  toast(fetchRes.message)
-  setData(()=>{
-    return{
-      name: "",
-    category: "",
-    image: "",
-    price: "",
-    description: "",
-    }
-  })
-}else{
-  toast("enter required field")
-}
-
- 
   };
-  
+
   return (
     <div className="p-4">
       <form
@@ -95,13 +93,18 @@ if(name&& image && category && price){
           onChange={handleOnChange}
         >
           <option value={"other"}>-- Select</option>
-          <option value={"fruits"}>Fruits</option>
-          <option value={"vegetables"}>Vegitables</option>
-          <option value={"ice creams"}>Ice Creams</option>
-          <option value={"Dosa"}>Dosa</option>
-          <option value={"Pizza"}>Pizza</option>
-          <option value={"Cake"}>Pizza</option>
-
+          <option value={"fruits"}>Fresh fruits</option>
+          <option value={"vegetables"}>Fresh egitables</option>
+          <option value={"frozen"}>Frozen</option>
+          <option value={"canned foods"}>Canned foods</option>
+          <option value={"spices"}>Spices & herbs</option>
+          <option value={"dairy"}>Dairy</option>
+          <option value={"meat"}>Meat</option>
+          <option value={"seafood"}>Seafood</option>
+          <option value={"bakedpastry"}>Baked & pastry</option>
+          <option value={"baking"}>Baking</option>
+          <option value={"snacks"}>Snacks</option>
+          <option value={"themedmeals"}>Themed meals</option>
         </select>
 
         <label htmlFor="image" className="">
@@ -135,7 +138,7 @@ if(name&& image && category && price){
           onChange={handleOnChange}
         />
 
-        <label htmlFor="" className="description" >
+        <label htmlFor="" className="description">
           Description
         </label>
         <textarea
