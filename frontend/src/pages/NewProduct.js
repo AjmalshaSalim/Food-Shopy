@@ -94,7 +94,7 @@ function NewProduct() {
         >
           <option value={"other"}>-- Select</option>
           <option value={"fruits"}>Fresh fruits</option>
-          <option value={"vegetables"}>Fresh egitables</option>
+          <option value={"vegetables"}>Fresh vegitables</option>
           <option value={"frozen"}>Frozen</option>
           <option value={"canned foods"}>Canned foods</option>
           <option value={"spices"}>Spices & herbs</option>
