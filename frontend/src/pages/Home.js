@@ -17,7 +17,7 @@ function Home() {
     []
   );
   const loadingArray = new Array(4).fill(null);
-  const loadingArrayFeature = new Array(1).fill(null);
+  const loadingArrayProduct= new Array(6).fill(null);
 
   console.log("VEGETABLES", homeProductCartListVegitables);
 
@@ -29,24 +29,24 @@ function Home() {
   const prevProduct = () => {
     slideProductRef.current.scrollLeft -= 500;
   };
-  const categoryList= [...new Set(productData.map(el=>el.category))]
+  const categoryList = [...new Set(productData.map((el) => el.category))];
   console.log(categoryList);
 
   //Filter Data Display
-const [filterBy,setFilterBy] = useState("")
-const [dataFilter,setDataFilter] = useState([])
-useEffect(()=>{
-setDataFilter(productData)
-},[productData])
+  const [filterBy, setFilterBy] = useState("");
+  const [dataFilter, setDataFilter] = useState([]);
+  useEffect(() => {
+    setDataFilter(productData);
+  }, [productData]);
 
-const handleFilterProduct = (category)=>{
-  const filter = productData.filter(el=>el.category.toLowerCase() === category.toLowerCase() )
-  setDataFilter(()=>{
-    return[
-...filter
-    ]
-  })
-}
+  const handleFilterProduct = (category) => {
+    const filter = productData.filter(
+      (el) => el.category.toLowerCase() === category.toLowerCase()
+    );
+    setDataFilter(() => {
+      return [...filter];
+    });
+  };
   return (
     <div className="p-2 md:p-4">
       <div className="md:flex gap-4 py-2">
@@ -105,13 +105,13 @@ const handleFilterProduct = (category)=>{
           <div className="ml-auto flex gap-4">
             <button
               onClick={prevProduct}
-              className="bg-red-300 hover:bg-red-400 text-lg p-1 rounded"
+              className="bg-white hover:bg-yellow-400 hover:scale-125 text-lg p-1 rounded ease-in-out duration-500"
             >
               <GrPrevious />
             </button>
             <button
               onClick={nextProduct}
-              className="bg-red-300 hover:bg-red-400 text-lg p-1 rounded"
+              className="bg-white hover:bg-yellow-400 hover:scale-125 text-lg p-1 rounded ease-in-out duration-500"
             >
               <GrNext />
             </button>
@@ -133,7 +133,7 @@ const handleFilterProduct = (category)=>{
                   />
                 );
               })
-            : loadingArrayFeature.map((el, index) => (
+            : loadingArrayProduct.map((el, index) => (
                 <HomeCard
                   key={index + "loading"}
                   loading={<img src={loadingSvg} alt="Loading" />}
@@ -142,34 +142,40 @@ const handleFilterProduct = (category)=>{
         </div>
       </div>
       <div className="">
-      <h2 className="font-bold text-2xl text-slate-800 mb-5 my-5">
-            Your Products
-          </h2>
-          <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
-            {
-              categoryList[0] && categoryList.map(el=>{
-                return(
-<FilterProduct category={el} onClick={()=>handleFilterProduct(el)}/>
-                )
-              })
-            }
-          </div>
-<div className="flex flex-wrap justify-center gap-4">
-  {
-    dataFilter.map(el =>{
-      return(
-        <CardFeatures
-        key={el._id}
-        image={el.image}
-                    name={el.name}
-                    price={el.price}
-                    category={el.category}
-        />
-      )
-    })
-  }
-
-</div>
+        <h2 className="font-bold text-2xl text-slate-800 mb-5 my-5">
+          Your Products
+        </h2>
+        <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+          {categoryList[0] ?
+          categoryList[0] &&
+            categoryList.map((el) => {
+              return (
+                <FilterProduct
+                  category={el}
+                  onClick={() => handleFilterProduct(el)}
+                />
+              );
+            })
+            : loadingArrayProduct.map((el, index) => (
+              <HomeCard
+                key={index + "loading"}
+                loading={<img src={loadingSvg} alt="Loading" />}
+              />
+            ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-5">
+          {dataFilter.map((el) => {
+            return (
+              <CardFeatures
+                key={el._id}
+                image={el.image}
+                name={el.name}
+                price={el.price}
+                category={el.category}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

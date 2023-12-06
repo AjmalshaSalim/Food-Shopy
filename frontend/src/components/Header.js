@@ -29,10 +29,18 @@ function Header() {
         </Link>
         <div className="flex items-center gap-4 md:gap-7">
           <nav className="gap-4 md:gap-6 text-base md:text-lg hidden md:flex">
-            <Link className="hover:text-red-500" to={""}>Home</Link>
-            <Link className="hover:text-red-500" to={"Menu"}>Menu</Link>
-            <Link className="hover:text-red-500" to={"About"}>About</Link>
-            <Link className="hover:text-red-500" to={"Contact"}>Contact</Link>
+            <Link className="hover:text-red-500" to={""}>
+              Home
+            </Link>
+            <Link className="hover:text-red-500" to={"Menu"}>
+              Menu
+            </Link>
+            <Link className="hover:text-red-500" to={"About"}>
+              About
+            </Link>
+            <Link className="hover:text-red-500" to={"Contact"}>
+              Contact
+            </Link>
           </nav>
           <div className="text-2xl text-slate-600 relative cursor-pointer">
             <FaCartShopping />
@@ -78,12 +86,20 @@ function Header() {
                     Login
                   </Link>
                 )}
-                   <nav className="text-base md:text-lg flex flex-col md:hidden">
-            <Link className="hover:text-red-500 px-2 py-1" to={""}>Home</Link>
-            <Link className="hover:text-red-500 px-2 py-1" to={"Menu"}>Menu</Link>
-            <Link className="hover:text-red-500 px-2 py-1" to={"About"}>About</Link>
-            <Link className="hover:text-red-500 px-2 py-1" to={"Contact"}>Contact</Link>
-          </nav>
+                <nav className="text-base md:text-lg flex flex-col md:hidden">
+                  <Link className="hover:text-red-500 px-2 py-1" to={""}>
+                    Home
+                  </Link>
+                  <Link className="hover:text-red-500 px-2 py-1" to={"Menu"}>
+                    Menu
+                  </Link>
+                  <Link className="hover:text-red-500 px-2 py-1" to={"About"}>
+                    About
+                  </Link>
+                  <Link className="hover:text-red-500 px-2 py-1" to={"Contact"}>
+                    Contact
+                  </Link>
+                </nav>
               </div>
             )}
           </div>
