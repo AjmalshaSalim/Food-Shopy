@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HomeCard from "../components/HomeCard";
 import { useSelector } from "react-redux";
 import CardFeatures from "../components/CardFeatures";
 import loadingSvg from "../assets/Rolling-1s-200px.svg";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import FilterProduct from "../components/FilterProduct";
 
 function Home() {
   const productData = useSelector((state) => state.product.productList);
@@ -28,6 +29,24 @@ function Home() {
   const prevProduct = () => {
     slideProductRef.current.scrollLeft -= 500;
   };
+  const categoryList= [...new Set(productData.map(el=>el.category))]
+  console.log(categoryList);
+
+  //Filter Data Display
+const [filterBy,setFilterBy] = useState("")
+const [dataFilter,setDataFilter] = useState([])
+useEffect(()=>{
+setDataFilter(productData)
+},[productData])
+
+const handleFilterProduct = (category)=>{
+  const filter = productData.filter(el=>el.category.toLowerCase() === category.toLowerCase() )
+  setDataFilter(()=>{
+    return[
+...filter
+    ]
+  })
+}
   return (
     <div className="p-2 md:p-4">
       <div className="md:flex gap-4 py-2">
@@ -121,6 +140,36 @@ function Home() {
                 />
               ))}
         </div>
+      </div>
+      <div className="">
+      <h2 className="font-bold text-2xl text-slate-800 mb-5 my-5">
+            Your Products
+          </h2>
+          <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+            {
+              categoryList[0] && categoryList.map(el=>{
+                return(
+<FilterProduct category={el} onClick={()=>handleFilterProduct(el)}/>
+                )
+              })
+            }
+          </div>
+<div className="flex flex-wrap justify-center gap-4">
+  {
+    dataFilter.map(el =>{
+      return(
+        <CardFeatures
+        key={el._id}
+        image={el.image}
+                    name={el.name}
+                    price={el.price}
+                    category={el.category}
+        />
+      )
+    })
+  }
+
+</div>
       </div>
     </div>
   );
