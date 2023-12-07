@@ -1,12 +1,11 @@
-  import HomeCard from "../components/HomeCard";
+import HomeCard from "../components/HomeCard";
 import { useSelector } from "react-redux";
 import CardFeatures from "../components/CardFeatures";
 import loadingSvg from "../assets/Rolling-1s-200px.svg";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
-import { useRef} from "react";
+import { useRef } from "react";
 import AllProduct from "../components/AllProduct";
-
 
 function Home() {
   const productData = useSelector((state) => state.product.productList);
@@ -17,7 +16,7 @@ function Home() {
     []
   );
   const loadingArray = new Array(4).fill(null);
-  const loadingArrayProduct= new Array(6).fill(null);
+  const loadingArrayProduct = new Array(6).fill(null);
 
   console.log("VEGETABLES", homeProductCartListVegitables);
 
@@ -30,8 +29,7 @@ function Home() {
     slideProductRef.current.scrollLeft -= 500;
   };
   const categoryList = [...new Set(productData.map((el) => el.category))];
-  console.log("CATEGORY LIST +++",categoryList);
-
+  console.log("CATEGORY LIST +++", categoryList);
 
   return (
     <div className="p-2 md:p-4">
@@ -111,7 +109,7 @@ function Home() {
             ? homeProductCartListVegitables.map((el) => {
                 return (
                   <CardFeatures
-                  id={el._id}
+                    id={el._id}
                     key={el._id}
                     image={el.image}
                     name={el.name}
@@ -128,7 +126,7 @@ function Home() {
               ))}
         </div>
       </div>
-      <AllProduct/>
+      <AllProduct heading={"Your Products"} />
     </div>
   );
 }

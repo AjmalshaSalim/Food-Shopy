@@ -32,7 +32,10 @@ function Header() {
             <Link className="hover:text-red-500" to={""}>
               Home
             </Link>
-            <Link className="hover:text-red-500" to={"menu/656ac023a1f616e5ceaab053"}>
+            <Link
+              className="hover:text-red-500"
+              to={"menu/656ac023a1f616e5ceaab053"}
+            >
               Menu
             </Link>
             <Link className="hover:text-red-500" to={"about"}>
@@ -90,7 +93,10 @@ function Header() {
                   <Link className="hover:text-red-500 px-2 py-1" to={""}>
                     Home
                   </Link>
-                  <Link className="hover:text-red-500 px-2 py-1" to={"menu/656ac023a1f616e5ceaab053"}>
+                  <Link
+                    className="hover:text-red-500 px-2 py-1"
+                    to={"menu/656ac023a1f616e5ceaab053"}
+                  >
                     Menu
                   </Link>
                   <Link className="hover:text-red-500 px-2 py-1" to={"About"}>
