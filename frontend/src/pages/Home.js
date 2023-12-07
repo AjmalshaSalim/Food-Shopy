@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import HomeCard from "../components/HomeCard";
+  import HomeCard from "../components/HomeCard";
 import { useSelector } from "react-redux";
 import CardFeatures from "../components/CardFeatures";
 import loadingSvg from "../assets/Rolling-1s-200px.svg";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
-import { useRef, useState } from "react";
-import FilterProduct from "../components/FilterProduct";
+import { useRef} from "react";
+import AllProduct from "../components/AllProduct";
+
 
 function Home() {
   const productData = useSelector((state) => state.product.productList);
@@ -30,23 +30,9 @@ function Home() {
     slideProductRef.current.scrollLeft -= 500;
   };
   const categoryList = [...new Set(productData.map((el) => el.category))];
-  console.log(categoryList);
+  console.log("CATEGORY LIST +++",categoryList);
 
-  //Filter Data Display
-  const [filterBy, setFilterBy] = useState("");
-  const [dataFilter, setDataFilter] = useState([]);
-  useEffect(() => {
-    setDataFilter(productData);
-  }, [productData]);
 
-  const handleFilterProduct = (category) => {
-    const filter = productData.filter(
-      (el) => el.category.toLowerCase() === category.toLowerCase()
-    );
-    setDataFilter(() => {
-      return [...filter];
-    });
-  };
   return (
     <div className="p-2 md:p-4">
       <div className="md:flex gap-4 py-2">
@@ -118,13 +104,14 @@ function Home() {
           </div>
         </div>
         <div
-          className="flex gap-5 overflow-scroll scrollbar-none scroll-smooth transition-all"
+          className="flex gap-5 overflow-scroll scrollbar-none scroll-smooth transition-all pb-12"
           ref={slideProductRef}
         >
           {homeProductCartListVegitables[0]
             ? homeProductCartListVegitables.map((el) => {
                 return (
                   <CardFeatures
+                  id={el._id}
                     key={el._id}
                     image={el.image}
                     name={el.name}
@@ -141,42 +128,7 @@ function Home() {
               ))}
         </div>
       </div>
-      <div className="">
-        <h2 className="font-bold text-2xl text-slate-800 mb-5 my-5">
-          Your Products
-        </h2>
-        <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
-          {categoryList[0] ?
-          categoryList[0] &&
-            categoryList.map((el) => {
-              return (
-                <FilterProduct
-                  category={el}
-                  onClick={() => handleFilterProduct(el)}
-                />
-              );
-            })
-            : loadingArrayProduct.map((el, index) => (
-              <HomeCard
-                key={index + "loading"}
-                loading={<img src={loadingSvg} alt="Loading" />}
-              />
-            ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-5">
-          {dataFilter.map((el) => {
-            return (
-              <CardFeatures
-                key={el._id}
-                image={el.image}
-                name={el.name}
-                price={el.price}
-                category={el.category}
-              />
-            );
-          })}
-        </div>
-      </div>
+      <AllProduct/>
     </div>
   );
 }
