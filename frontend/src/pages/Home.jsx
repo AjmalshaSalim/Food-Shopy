@@ -110,7 +110,7 @@ function Home() {
                 return (
                   <CardFeatures
                     id={el._id}
-                    key={el._id}
+                    key={el._id + "vegetables"}
                     image={el.image}
                     name={el.name}
                     price={el.price}
@@ -120,7 +120,7 @@ function Home() {
               })
             : loadingArrayProduct.map((el, index) => (
                 <HomeCard
-                  key={index + "loading"}
+                  key={index + "cartLoading"}
                   loading={<img src={loadingSvg} alt="Loading" />}
                 />
               ))}
