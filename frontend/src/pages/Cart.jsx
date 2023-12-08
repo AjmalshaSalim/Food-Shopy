@@ -11,9 +11,9 @@ const Cart = () => {
         Your Cart Items
       </h2>
 
-      <div className="">
+      <div className="my-4">
         {/* Display Cart Items */}
-        <div className="">
+        <div className="w-full max-w-3xl">
           {
             productCartItem.map(el=>{
               return(
