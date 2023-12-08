@@ -8,10 +8,10 @@ import loadingSvg from "../assets/Rolling-1s-200px.svg";
 
 const AllProduct = ({ heading }) => {
   const productData = useSelector((state) => state.product.productList);
-  console.log("PRODUCT DATA +++", productData);
+  // console.log("All Products Data ->", productData);
 
   const categoryList = [...new Set(productData.map((el) => el.category))];
-  console.log("CATEGORY LIST +++", categoryList);
+  // console.log("All Product Category List ->", categoryList);
   //Dummy
   const loadingArrayProduct = new Array(6).fill(null);
 

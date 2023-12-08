@@ -13,8 +13,8 @@ app.use(express.json({ limit: "10mb" }));
 mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGODB_URL)
-  .then(() => console.log("database connected"))
-  .catch((err) => console.log(err));
+  .then(() => console.log("Database Connected ->"))
+  .catch((err) => console.log("Error Message ->",err));
 
 //User Schema
 const userSchema = mongoose.Schema({
@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 });
 //Api signup
 app.post("/signup", async (req, res) => {
-  console.log("signup result", req.body);
+  console.log("Index Signup Result ->", req.body);
   const { email } = req.body;
   try {
     const existingUser = await UserModel.findOne({ email: email });
@@ -56,7 +56,7 @@ app.post("/signup", async (req, res) => {
 });
 //User Api login
 app.post("/login", async (req, res) => {
-  console.log(req.body);
+  console.log("Index Login Request Body ->",req.body);
   const { email } = req.body;
 
   try {
@@ -70,7 +70,7 @@ app.post("/login", async (req, res) => {
         email: result.email,
         image: result.image,
       };
-      console.log(dataSend);
+      console.log("Index Data Send ->",dataSend);
       res.send({ message: "Login is successful", alert: true, data: dataSend });
     } else {
       res.send({ message: "Email not found, please sign up", alert: false });
@@ -97,7 +97,7 @@ const productModel = mongoose.model("product", schemaProduct);
 
 //Save Products
 app.post("/uploadProducts", async (req, res) => {
-  console.log(req.body);
+  console.log("Index Upload Product Request Body ->",req.body);
   const data = await productModel(req.body);
   const dataSave = await data.save();
   res.send({ message: "Upload Successfully" });

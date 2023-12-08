@@ -1,13 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AllProduct from "../components/AllProduct";
+import { addCartItem } from "../redux/productSlice";
+import toast from "react-hot-toast";
 
 function Menu() {
   const { filterby } = useParams();
+  const dispatch = useDispatch;
   const productData = useSelector((state) => state.product.productList);
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
-  console.log("PRODUCTDATA__", productData);
+  // console.log("Menu Product Data", productData);
+  const handleAddCardProduct= (e)=> {
+    dispatch(addCartItem(productDisplay));
+  toast("Added To Cart")
+  }
 
   return (
     <div className=" p-2 md:p-4">
@@ -33,7 +40,7 @@ function Menu() {
             <button className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 min-w-[100px]">
               Buy
             </button>
-            <button className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 min-w-[100px]">
+            <button className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 min-w-[100px]" onClick={handleAddCardProduct}>
               Add To Cart
             </button>
           </div>

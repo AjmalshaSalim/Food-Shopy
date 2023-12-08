@@ -4,21 +4,28 @@ import CardFeatures from "../components/CardFeatures";
 import loadingSvg from "../assets/Rolling-1s-200px.svg";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import AllProduct from "../components/AllProduct";
+import AOS from "aos"
+import "aos/dist/aos.css";
 
 function Home() {
   const productData = useSelector((state) => state.product.productList);
-  console.log("PRODUCT DATA +++", productData);
+  // console.log("Home Products Data ->", productData);
   const homeProductCartList = productData.slice(1, 5);
   const homeProductCartListVegitables = productData.filter(
     (el) => el.category === "vegetables",
     []
   );
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
+
   const loadingArray = new Array(4).fill(null);
   const loadingArrayProduct = new Array(6).fill(null);
 
-  console.log("VEGETABLES", homeProductCartListVegitables);
+  // console.log("Home Cart List Vegetables ->", homeProductCartListVegitables);
 
   const slideProductRef = useRef();
 
@@ -29,13 +36,13 @@ function Home() {
     slideProductRef.current.scrollLeft -= 500;
   };
   const categoryList = [...new Set(productData.map((el) => el.category))];
-  console.log("CATEGORY LIST +++", categoryList);
+  console.log("Home Category List ->", categoryList);
 
   return (
     <div className="p-2 md:p-4">
       <div className="md:flex gap-4 py-2">
         {/* left */}
-        <div className="md:w-1/2">
+        <div className="md:w-1/2"  data-aos="fade-up" data-aos-duration="2000">
           <div className="flex gap-3 bg-red-200 w-36 px-2 items-center rounded-full">
             <p className="text-sm font-medium text-slate-700">Bike Delivery</p>
             <img

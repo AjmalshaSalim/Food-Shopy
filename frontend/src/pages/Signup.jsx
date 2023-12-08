@@ -19,7 +19,7 @@ function Signup() {
     confirmPassword: "",
     image: "",
   });
-  console.log(data);
+  // console.log("Signup Data",data);
   const handleShowConfirmPassword = () => {
     setShowConfirmPassword((prev) => !prev);
   };
@@ -38,7 +38,7 @@ function Signup() {
 
   const handleUploadProfileImage = async (e) => {
     const data = await imageToBase64(e.target.files[0]);
-    console.log(data);
+    // console.log("Signup Profile Image Data ->",data);
     setData((prev) => {
       return {
         ...prev,
@@ -46,7 +46,7 @@ function Signup() {
       };
     });
   };
-  console.log(process.env.REACT_APP_SERVER_DOMAIN);
+  // console.log("Signup Server ->",process.env.REACT_APP_SERVER_DOMAIN);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password, confirmPassword } = data;
@@ -63,7 +63,7 @@ function Signup() {
           }
         );
         const dataRes = await fetchData.json();
-        console.log(dataRes);
+        // console.log("Signup Data Response ->",dataRes);
         toast(dataRes.message);
         if (dataRes.alert) {
           navigate("/login");
@@ -77,8 +77,8 @@ function Signup() {
   };
 
   return (
-    <div className="p-3 md:p-4">
-      <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
+    <div className="p-3 md:p-6">
+      <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4 rounded-md shadow-xl">
         {/* <h1 className='text-center text-2xl font-bold'>Signup</h1> */}
         <div className="w-20 h-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto relative">
           <img
@@ -182,7 +182,7 @@ function Signup() {
               {showConfirmPassword ? <BiShow /> : <BiHide />}
             </span>
           </div>
-          <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center pb-1 py-1 rounded-full mt-4">
+          <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center py-1 rounded-md mt-4">
             Sign Up
           </button>
         </form>

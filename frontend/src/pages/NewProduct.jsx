@@ -33,7 +33,7 @@ function NewProduct() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
+    // console.log("New Product Data",data);
 
     const { name, image, category, price } = data;
 
@@ -65,10 +65,10 @@ function NewProduct() {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-6">
       <form
         action=""
-        className="m-auto w-full max-w-md shadow flex flex-col p-3 bg-white"
+        className="m-auto w-full max-w-md drop-shadow-xl flex flex-col p-3 bg-white rounded-md"
         onSubmit={handleSubmit}
       >
         <label htmlFor="name" className="">
@@ -93,18 +93,18 @@ function NewProduct() {
           onChange={handleOnChange}
         >
           <option value={"other"}>-- Select</option>
-          <option value={"fruits"}>Fresh fruits</option>
-          <option value={"vegetables"}>Fresh vegitables</option>
+          <option value={"fruits"}>fruits</option>
+          <option value={"vegetables"}>vegitables</option>
           <option value={"frozen"}>Frozen</option>
-          <option value={"canned foods"}>Canned foods</option>
-          <option value={"spices"}>Spices & herbs</option>
+          <option value={"canned"}>Canned</option>
+          <option value={"spices"}>Spices</option>
           <option value={"dairy"}>Dairy</option>
           <option value={"meat"}>Meat</option>
           <option value={"seafood"}>Seafood</option>
-          <option value={"bakedpastry"}>Baked & pastry</option>
+          <option value={"cakes"}>Cakes</option>
           <option value={"baking"}>Baking</option>
           <option value={"snacks"}>Snacks</option>
-          <option value={"themedmeals"}>Themed meals</option>
+          <option value={"fast"}>Fast Food</option>
         </select>
 
         <label htmlFor="image" className="">
@@ -150,7 +150,7 @@ function NewProduct() {
           value={data.description}
           onChange={handleOnChange}
         ></textarea>
-        <button className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium my-2 drop-shadow-sm">
+        <button className="bg-red-500 hover:bg-red-600 text-white text-lg font-medium pt-1 pb-1 my-2 drop-shadow-sm rounded-md">
           Save
         </button>
       </form>

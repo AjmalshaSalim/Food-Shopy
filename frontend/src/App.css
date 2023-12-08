@@ -1,3 +1,6 @@
 body::-webkit-scrollbar{
 display: none;
 }
+body{
+    background-image: url("./assets/bree-anne-b3BUmhOSn5U-unsplash.jpg");
+}

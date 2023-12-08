@@ -17,7 +17,8 @@ function Header() {
     dispatch(logoutRedux());
     toast("Logout Successfully");
   };
-  console.log(process.env.REACT_APP_ADMIN_EMAIL);
+  const CartItemNumber=useSelector((state)=>state.product.cartItem)
+  // console.log("Header Admin Email ->",process.env.REACT_APP_ADMIN_EMAIL);
   return (
     <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
       {/* desktop */}
@@ -48,7 +49,7 @@ function Header() {
           <div className="text-2xl text-slate-600 relative cursor-pointer">
             <Link to={"cart"}><FaCartShopping />
             <div className="absolute -top-2 -right-2 p-0 m-0 text-white bg-red-500 h-4 w-4 rounded-full text-xs text-center">
-              0
+              {CartItemNumber.length}
             </div>
             </Link>
           </div>

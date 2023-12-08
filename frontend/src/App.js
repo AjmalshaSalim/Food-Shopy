@@ -9,12 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 function App() {
   const dispatch = useDispatch();
   const productData = useSelector((state) => state.product);
-  console.log(productData);
+  console.log("App Product Data ->",productData);
   useEffect(() => {
     (async () => {
       const res = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/product`);
       const resData = await res.json();
-      console.log(resData);
+      console.log("App Response Data ->",resData);
       dispatch(setDataProduct(resData));
     })();
   }, []);

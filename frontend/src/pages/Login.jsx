@@ -10,8 +10,9 @@ import { loginRedux } from "../redux/userSlice";
 function Login() {
   const navigate = useNavigate();
 
-  const userData = useSelector((state) => state);
-  console.log(userData);
+
+  const userData = useSelector((state) => state.user);
+  // console.log("Login User Data ->",userData);
 
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ function Login() {
     email: "",
     password: "",
   });
-  console.log(data);
+
   const handleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
@@ -49,8 +50,8 @@ function Login() {
         }
       );
       const dataRes = await fetchData.json();
-      console.log(dataRes);
-      toast(userData.user.firstName + dataRes.message);
+      console.log("Login Data Response ->",dataRes);
+      toast(userData.firstName + dataRes.message);
       if (dataRes.alert) {
         dispatch(loginRedux(dataRes));
         setTimeout(() => {
@@ -61,9 +62,9 @@ function Login() {
     }
   };
   return (
-    <div className="p-3 md:p-4">
-      <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4">
-        <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
+    <div className="p-3 md:p-6">
+      <div className="w-full max-w-sm bg-white m-auto flex flex-col p-4 rounded-md shadow-xl">
+        <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-sm m-auto">
           <img src={loginSignupImage} alt="" className="w-full" />
         </div>
         <form
@@ -81,6 +82,7 @@ function Login() {
             className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
             value={data.email}
             onChange={handleChange}
+            autoComplete="email"
           />
 
           <label htmlFor="password" className="">
@@ -94,6 +96,7 @@ function Login() {
               className="w-full bg-slate-200 border-none outline-none"
               value={data.password}
               onChange={handleChange}
+              autoComplete="current-password"
             />
 
             <span
@@ -103,7 +106,7 @@ function Login() {
               {showPassword ? <BiShow /> : <BiHide />}
             </span>
           </div>
-          <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center pb-1 py-1 rounded-full mt-4">
+          <button className="w-full max-w-[150px] m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white text-xl font-medium text-center pb-1 py-1 rounded-md mt-4">
             Login
           </button>
         </form>

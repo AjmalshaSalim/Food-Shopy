@@ -12,7 +12,9 @@ export const productSlice = createSlice({
       state.productList = [...action.payload];
     },
     addCartItem : (state, action)=>{
-console.log(action)
+      const total=action.payload.price;
+console.log("Product Slice Add to Cart Action ->",action)
+state.cartItem = [...state.cartItem,{...action.payload,qty:1,total:total}]
     },
     deleteCartItem :(state, action)=>{
 
