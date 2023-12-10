@@ -11,10 +11,10 @@ function Menu() {
   const productData = useSelector((state) => state.product.productList);
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
   // console.log("Menu Product Data", productData);
-  const handleAddCardProduct= (e)=> {
+  const handleAddCardProduct = (e) => {
     dispatch(addCartItem(productDisplay));
-  toast("Added To Cart")
-  }
+    toast("Added To Cart");
+  };
 
   return (
     <div className=" p-2 md:p-4">
@@ -40,7 +40,10 @@ function Menu() {
             <button className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 min-w-[100px]">
               Buy
             </button>
-            <button className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 min-w-[100px]" onClick={handleAddCardProduct}>
+            <button
+              className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 min-w-[100px]"
+              onClick={handleAddCardProduct}
+            >
               Add To Cart
             </button>
           </div>

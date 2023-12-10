@@ -4,7 +4,6 @@ import CartProduct from "../components/CartProduct";
 
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
-  console.log(productCartItem);
   return (
     <div className="p-2 md:p-4">
       <h2 className="text-lg md:text-2xl font-bold text-slate-600">
@@ -14,11 +13,10 @@ const Cart = () => {
       <div className="my-4">
         {/* Display Cart Items */}
         <div className="w-full max-w-3xl">
-          {
-            productCartItem.map(el=>{
-              return(
-                <CartProduct 
-                key={el._id} 
+          {productCartItem.map((el) => {
+            return (
+              <CartProduct
+                key={el._id}
                 id={el._id}
                 name={el.name}
                 image={el.image}
@@ -26,10 +24,9 @@ const Cart = () => {
                 qty={el.qty}
                 price={el.price}
                 total={el.total}
-                />
-              )
-            })
-          }
+              />
+            );
+          })}
         </div>
 
         {/* Total Cart Items */}
