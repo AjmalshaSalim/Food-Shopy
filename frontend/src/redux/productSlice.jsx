@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 
 const initialState = {
   productList: [],
@@ -20,8 +21,17 @@ export const productSlice = createSlice({
       ];
     },
     deleteCartItem: (state, action) => {},
+    increaseQty: (state, action) => {
+      toast("Item Removed From Cart");
+    },
+    decreaseQty: (state, action) => {},
   },
 });
-export const { setDataProduct, addCartItem, deleteCartItem } =
-  productSlice.actions;
+export const {
+  setDataProduct,
+  addCartItem,
+  deleteCartItem,
+  increaseQty,
+  decreaseQty,
+} = productSlice.actions;
 export default productSlice.reducer;
