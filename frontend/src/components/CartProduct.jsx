@@ -12,7 +12,7 @@ import {
 const CartProduct = ({ id, name, image, category, qty, price, total }) => {
   const dispatch = useDispatch();
   return (
-    <div className="bg-slate-200 p-2 flex gap-4 rounded border-b-4 border-slate-100">
+    <div className="bg-white p-2 flex gap-4 rounded border-b-4 border-slate-100">
       <div className="bg-white p-3 rounded overflow-hidden">
         <img src={image} alt="" className="h-28 w-40 object-cover" />
       </div>
@@ -49,8 +49,8 @@ const CartProduct = ({ id, name, image, category, qty, price, total }) => {
             </button>
           </div>
           <div className=" flex items-center gap-2 font-bold text-slate-700 pr-2">
-            <p>Total :</p>
-            <p>{total}</p>
+            <p>Total : </p>
+            <p><span>₹</span>{total}</p>
           </div>
         </div>
       </div>

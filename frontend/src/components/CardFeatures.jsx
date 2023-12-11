@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { addCartItem } from "../redux/productSlice";
 import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
 
 const CardFeatures = ({ image, name, price, category, loading, id }) => {
   const dispatch = useDispatch();

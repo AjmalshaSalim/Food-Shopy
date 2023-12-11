@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import AllProduct from "../components/AllProduct";
 import { addCartItem } from "../redux/productSlice";
-import toast from "react-hot-toast";
 
 function Menu() {
   const { filterby } = useParams();
@@ -13,7 +12,6 @@ function Menu() {
   // console.log("Menu Product Data", productData);
   const handleAddCardProduct = (e) => {
     dispatch(addCartItem(productDisplay));
-    toast("Added To Cart");
   };
 
   return (
