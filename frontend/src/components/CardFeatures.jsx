@@ -5,17 +5,18 @@ import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 
 const CardFeatures = ({ image, name, price, category, loading, id }) => {
-const dispatch =useDispatch()
-  const handleAddCardProduct= (e)=> {
-    dispatch(addCartItem({
-      _id:id,
-      name: name,
-      category: category,
-      price: price,
-      image: image
-    }));
-  toast("Added To Cart")
-  }
+  const dispatch = useDispatch();
+  const handleAddCardProduct = (e) => {
+    dispatch(
+      addCartItem({
+        _id: id,
+        name: name,
+        category: category,
+        price: price,
+        image: image,
+      })
+    );
+  };
   return (
     <div className="w-full min-w-[200px] max-w-[200px] bg-white shadow-lg hover:drop-shadow-2xl py-5 px-4 duration-500 ease-in-out flex flex-col rounded">
       {image ? (
@@ -38,11 +39,13 @@ const dispatch =useDispatch()
             <p className="font-bold">
               ₹<span>{price}</span>
             </p>
-            </Link>
-            <button className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 w-full" onClick={handleAddCardProduct}>
-              Add To Cart
-            </button>
-          
+          </Link>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-400 rounded py-1 mt-2 w-full"
+            onClick={handleAddCardProduct}
+          >
+            Add To Cart
+          </button>
         </>
       ) : (
         <div className="min-w-[200px] flex justify-center items-center">

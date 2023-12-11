@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 
 function Menu() {
   const { filterby } = useParams();
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const productData = useSelector((state) => state.product.productList);
   const productDisplay = productData.filter((el) => el._id === filterby)[0];
   // console.log("Menu Product Data", productData);
