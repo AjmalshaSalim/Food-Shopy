@@ -14,7 +14,7 @@ mongoose.set("strictQuery", false);
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => console.log("Database Connected ->"))
-  .catch((err) => console.log("Error Message ->",err));
+  .catch((err) => console.log("Error Message ->", err));
 
 //User Schema
 const userSchema = mongoose.Schema({
@@ -56,7 +56,7 @@ app.post("/signup", async (req, res) => {
 });
 //User Api login
 app.post("/login", async (req, res) => {
-  console.log("Index Login Request Body ->",req.body);
+  console.log("Index Login Request Body ->", req.body);
   const { email } = req.body;
 
   try {
@@ -70,7 +70,7 @@ app.post("/login", async (req, res) => {
         email: result.email,
         image: result.image,
       };
-      console.log("Index Data Send ->",dataSend);
+      console.log("Index Data Send ->", dataSend);
       res.send({ message: "Login is successful", alert: true, data: dataSend });
     } else {
       res.send({ message: "Email not found, please sign up", alert: false });
@@ -97,10 +97,15 @@ const productModel = mongoose.model("product", schemaProduct);
 
 //Save Products
 app.post("/uploadProducts", async (req, res) => {
-  console.log("Index Upload Product Request Body ->",req.body);
+  // console.log("Index Upload Product Request Body ->",req.body);
   const data = await productModel(req.body);
   const dataSave = await data.save();
   res.send({ message: "Upload Successfully" });
+});
+
+//Payment Integration
+app.post("/checkout-payment", async (req, res) => {
+  res.send({ message: "Payment gateway", success: true });
 });
 
 //Product API
